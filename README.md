@@ -1,3 +1,4 @@
+## Installation 
 ```
 
 Installing the plugin will globally add the `vue-image-preloader` component to your project.  
