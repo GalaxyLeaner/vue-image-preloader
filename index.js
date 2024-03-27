@@ -1,7 +1,7 @@
 import imagePreloader from './components/imagePreloader.vue'
 
 export default {
-  install: function (Vue, options) {
+  install: function (app, options) {
     document.body.innerHTML = '<img id="imagePreloader_global_component">' + document.body.innerHTML
     const globalComponentsStyle = document.getElementById('imagePreloader_global_component').style
     globalComponentsStyle.width = 0
@@ -9,8 +9,8 @@ export default {
     globalComponentsStyle.position = 'fixed'
     globalComponentsStyle.zIndex = -1
     
-    Vue.component('imagePreloader', imagePreloader)
-    Vue.prototype.$imagePreload = (srcs, element = null, cb = () => null) => {
+    app.component('imagePreloader', imagePreloader)
+    app.config.globalProperties.$imagePreload = (srcs, element = null, cb = () => null) => {
       if(typeof element === "function") {
         cb = element
         element = null
@@ -44,7 +44,7 @@ export default {
         }
       })
     }
-    Vue.prototype.$imagePreload.reset = (element = null) => {
+    app.config.globalProperties.$imagePreload.reset = (element = null) => {
       return new Promise((resolve, reject) => {
         try {
           const el = element ? element : (document || {}).getElementById('imagePreloader_global_component')
